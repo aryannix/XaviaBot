@@ -2,6 +2,18 @@
 
 XaviaBot is a Facebook Messenger chatbot built with Node.js that uses the Facebook Chat API (FCA) to interact with users in Messenger groups and conversations. The bot features a plugin-based architecture supporting commands, events, and message handlers. It includes economy features, AI integration (Gemini), admin controls, and various utility commands. The bot supports multiple databases (JSON/MongoDB), multi-language support, and includes anti-spam/anti-change protection mechanisms.
 
+# Recent Changes
+
+**Date: October 09, 2025**
+- **nixprefix System**: Implemented new `nixprefix` command property allowing commands to work without prefix when set to `true`
+  - Added `plugins/onMessage/nixprefix.js` handler with full permission, cooldown, and NSFW checks
+  - Removed legacy `noprefix.js` handler
+  - Commands like `gemini` and `bby` now support no-prefix invocation
+- **Prefix Command**: Converted `prefix.js` from GoatBot to XaviaBot format with react-based confirmation
+- **Baby AI Command**: Converted `bby.js` from GoatBot to XaviaBot format with teaching/learning functionality
+- **Language System**: Updated unknown command message to use `prefix` language key instead of `unknown`
+- **Removed**: Disabled/incompatible commands (cmd.js, wl.js) that were GoatBot-specific
+
 # User Preferences
 
 Preferred communication style: Simple, everyday language.
