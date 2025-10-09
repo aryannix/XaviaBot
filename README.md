@@ -38,7 +38,7 @@ credits: "ArYAN",
 nixprefix: true,
 permissions: [0],
 cooldowns: 0,
-description: ""
+description: "",
 usage: "",
 category: "ai"
 };
