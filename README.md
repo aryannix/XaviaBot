@@ -29,7 +29,7 @@
 
 ## example
 
-```
+```json
 const config = {
 name: "example",
 aliases: ["ex"],
