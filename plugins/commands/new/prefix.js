@@ -33,9 +33,7 @@ async function onCall({ message, args, getLang, data, userPermissions }) {
     const _thread = data.thread || {};
     
     if (!args[0]) {
-        const systemPrefix = global.config.PREFIX || "!";
-        const threadPrefix = _thread?.data?.prefix || systemPrefix;
-        return message.reply(getLang("myPrefix", { systemPrefix, threadPrefix }));
+        return message.reply(getLang("invalidPrefix"));
     }
 
     if (args[0].toLowerCase() === 'reset') {

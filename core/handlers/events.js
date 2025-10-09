@@ -270,22 +270,42 @@ async function handleCommand(event) {
         } else {
             const cmdName = args[0].slice(prefix.length)?.toLowerCase();
             const nixLangPath = resolvePath("./language/nix.txt");
-            let unknownMsg = `The command you are using does not exist, type ${prefix}help to see all available commands`;
             
-            try {
-                if (existsSync(nixLangPath)) {
-                    const nixLang = readFileSync(nixLangPath, "utf8");
-                    const match = nixLang.match(/prefix=(.+)/);
-                    if (match) {
-                        unknownMsg = match[1]
-                            .replace("{prefix}", prefix);
+            if (!cmdName || cmdName === "") {
+                let prefixMsg = `The command you are using does not exist, type ${prefix}help to see all available commands`;
+                
+                try {
+                    if (existsSync(nixLangPath)) {
+                        const nixLang = readFileSync(nixLangPath, "utf8");
+                        const match = nixLang.match(/prefix=(.+)/);
+                        if (match) {
+                            prefixMsg = match[1].replace("{prefix}", prefix);
+                        }
                     }
+                } catch (e) {
+                    console.error("Error reading language/nix.txt:", e);
                 }
-            } catch (e) {
-                console.error("Error reading language/nix.txt:", e);
+                
+                api.sendMessage(prefixMsg, threadID, messageID);
+            } else {
+                let unknownMsg = `Command "${cmdName}" does not exist, type ${prefix}help to see all available commands`;
+                
+                try {
+                    if (existsSync(nixLangPath)) {
+                        const nixLang = readFileSync(nixLangPath, "utf8");
+                        const match = nixLang.match(/unknown=(.+)/);
+                        if (match) {
+                            unknownMsg = match[1]
+                                .replace("{command}", cmdName)
+                                .replace("{prefix}", prefix);
+                        }
+                    }
+                } catch (e) {
+                    console.error("Error reading language/nix.txt:", e);
+                }
+                
+                api.sendMessage(unknownMsg, threadID, messageID);
             }
-            
-            api.sendMessage(unknownMsg, threadID, messageID);
         }
     }
 }

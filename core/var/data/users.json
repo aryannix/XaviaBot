@@ -221,10 +221,10 @@
             "isBirthday": false
         },
         "data": {
-            "exp": 3,
+            "exp": 9,
             "money": "0"
         },
-        "lastUpdated": 1759984149388
+        "lastUpdated": 1759984398425
     },
     {
         "userID": "61579129512213",
@@ -457,10 +457,10 @@
             "isBirthday": false
         },
         "data": {
-            "exp": 14,
+            "exp": 20,
             "money": "0"
         },
-        "lastUpdated": 1759984149388
+        "lastUpdated": 1759984397920
     },
     {
         "userID": "100030851045383",
@@ -5452,10 +5452,10 @@
             "isBirthday": false
         },
         "data": {
-            "exp": 1,
+            "exp": 2,
             "money": "0"
         },
-        "lastUpdated": 1759984251133
+        "lastUpdated": 1759984252847
     },
     {
         "userID": "61581780808849",

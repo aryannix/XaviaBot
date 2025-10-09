@@ -12,7 +12,7 @@ const config = {
   description: "Ask Gemini AI - Talk with Gemini AI using Aryan's API",
   usage: "[your question]",
   category: "ai",
-  nixprefix: true
+  nixprefix: false
 };
 
 async function handleReply({ message }) {
