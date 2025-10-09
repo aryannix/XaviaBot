@@ -1,7 +1,7 @@
 ![XaviaBanner](https://i.ibb.co/K0ZSt89/XaviaFCB.png)
 
 # XaviaBot  
-**v0.0.8** | **By**: RFS-ADRENO | **Modded by**: **Aryan Rayhan**
+**v0.0.8** | **By**: RFS-ADRENO | **Modded by**: Aryan Rayhan
 
 🔗 **Sources**:  
 - [Original](https://github.com/XaviaTeam/XaviaBot)  
