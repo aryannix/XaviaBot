@@ -1,6 +1,6 @@
 
 # XaviaBot  
-**v0.0.8** | **By**: RFS-ADRENO | **Modded by**: Aryan Rayhan
+**v0.0.8** | **By**: RFS-ADRENO | **Modded by**: **Aryan Rayhan**
 
 🔗 **Sources**:  
 - [Original](https://github.com/XaviaTeam/XaviaBot)  
@@ -14,14 +14,15 @@
 ```json
 {
   "APPSTATE_PATH":"./appstate.json",
-  "PREFIX":"×",
+  "PREFIX":"!",
   "timezone":"Asia/Dhaka",
   "FCA_OPTIONS":{
     "forceLogin":true,
+    "selflisten" true,
     "userAgent":"Mozilla/5.0 (Linux; Android 9)..."
   }
 }
 ```
 
-💡 Replace `×` with your prefix  
+💡 Replace `!` with your prefix  
 💡 Use valid fbstate in appstate.json 
