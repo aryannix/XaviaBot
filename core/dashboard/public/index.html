@@ -2,229 +2,168 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>404 - Page Not Found</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,900" rel="stylesheet">
+    <title>Xavia Bot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+
         * {
-            -webkit-box-sizing: border-box;
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            padding: 0;
-            margin: 0;
-            overflow: hidden;
-        }
-
-        #notfound {
-            position: relative;
-            height: 100vh;
-            background: #0a0a2a;
-            background: linear-gradient(135deg, #0a0a2a 0%, #1a1a4a 100%);
-        }
-
-        #notfound .notfound {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            -webkit-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 767px;
-        }
-
-        .notfound {
-            width: 100%;
-            line-height: 1.4;
+            font-family: 'Roboto', sans-serif;
+            background-color: #1a1a2e; 
+            color: #ffffff; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             text-align: center;
+            padding: 20px;
         }
 
-        .notfound .notfound-404 {
-            position: relative;
-            height: 180px;
-            margin-bottom: 20px;
-            z-index: 1;
+        .container {
+            width: 90%;
+            max-width: 600px;
+            padding: 40px;
+            background: #2a2a4e; 
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .notfound .notfound-404 h1 {
-            font-family: 'Montserrat', sans-serif;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            -webkit-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-            font-size: 224px;
-            font-weight: 900;
-            margin: 0;
-            color: #0a0a2a;
-            text-transform: uppercase;
-            text-shadow: -1px -1px 0px #00ffcc, 1px 1px 0px #ff3377;
-            letter-spacing: -20px;
-            animation: float 6s ease-in-out infinite, color-cycle 8s infinite;
+
+        .logo-section {
+            margin-bottom: 30px;
         }
 
-        .notfound .notfound-404 h2 {
-            font-family: 'Montserrat', sans-serif;
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 110px;
-            font-size: 42px;
-            font-weight: 700;
-            color: #fff;
-            text-transform: uppercase;
-            text-shadow: 0px 2px 0px #00ffcc;
-            letter-spacing: 13px;
-            margin: 0;
-            animation: pulse 3s infinite;
-        }
-
-        @keyframes color-cycle {
-            0% { text-shadow: -2px -2px 0px #00ffcc, 2px 2px 0px #ff3377; }
-            33% { text-shadow: -2px -2px 0px #00ccff, 2px 2px 0px #ff9933; }
-            66% { text-shadow: -2px -2px 0px #ff66cc, 2px 2px 0px #ffff00; }
-            100% { text-shadow: -2px -2px 0px #00ffcc, 2px 2px 0px #ff3377; }
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { opacity: 1; }
-        }
-
-        @keyframes float {
-            0% { transform: translate(-50%, -50%); }
-            50% { transform: translate(-50%, -52%); }
-            100% { transform: translate(-50%, -50%); }
-        }
-
-        .stars {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .star {
-            position: absolute;
+        .logo-placeholder {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #00ffcc, #ff3377); /* Vibrant gradient */
             border-radius: 50%;
-            animation: twinkle var(--duration) infinite;
-            opacity: 0;
-            will-change: transform, opacity;
+            margin: 0 auto 15px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            font-weight: 700;
+            color: #1a1a2e;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.5); /* Subtle glow */
         }
 
-        @keyframes twinkle {
-            0% { opacity: 0; }
-            50% { opacity: var(--max-opacity); }
-            100% { opacity: 0; }
+        .bot-name-main {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.2;
         }
 
-        .glow {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 204, 0.1) 0%, rgba(255, 51, 119, 0.05) 50%, transparent 70%);
-            animation: glow-pulse 6s infinite;
-            z-index: 0;
+        .bot-name-sub {
+            font-size: 1.2em;
+            font-weight: 400;
+            color: #00ffcc; 
+            margin-top: 5px;
         }
 
-        @keyframes glow-pulse {
-            0% { opacity: 0.3; }
-            50% { opacity: 0.7; }
-            100% { opacity: 0.3; }
+
+        .status-section {
+            margin: 30px 0;
+            padding: 15px;
+            border-top: 1px solid #3a3a5e;
+            border-bottom: 1px solid #3a3a5e;
         }
 
-        @media only screen and (max-width: 767px) {
-            .notfound .notfound-404 h1 {
-                font-size: 150px;
-                letter-spacing: -10px;
-            }
-            
-            .notfound .notfound-404 h2 {
-                font-size: 24px;
-                top: 80px;
-                letter-spacing: 8px;
-            }
-            
-            .notfound .notfound-404 {
-                height: 150px;
-            }
+        .status-message {
+            font-size: 1.1em;
+            font-style: normal; 
+            font-weight: 400; 
+            color: #cccccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         }
 
-        @media only screen and (max-width: 480px) {
-            .notfound .notfound-404 h1 {
-                font-size: 120px;
-                letter-spacing: -8px;
-            }
-            
-            .notfound .notfound-404 h2 {
-                font-size: 18px;
-                letter-spacing: 5px;
-                top: 70px;
-            }
-            
-            .notfound .notfound-404 {
-                height: 130px;
-            }
+        @keyframes breathe {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(51, 255, 153, 0.7); }
+            50% { box-shadow: 0 0 0 5px rgba(51, 255, 153, 0); }
         }
+
+
+        h2 {
+            font-size: 1.5em;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: #cccccc;
+        }
+
+        .social-icons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 25px; 
+        }
+
+        .social-icons a {
+            color: #ffffff;
+            font-size: 2em;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #ff3377; 
+            transform: scale(1.1);
+        }
+
+
+        .social-icons .fa-github:hover { color: #800080; }
+        .social-icons .fa-facebook:hover { color: #1877f2; }
+        .social-icons .fa-whatsapp:hover { color: #25d366; }
+
     </style>
 </head>
 <body>
-    <div id="notfound">
-        <div class="stars" id="stars"></div>
-        <div class="glow"></div>
-        <div class="notfound">
-            <div class="notfound-404">
-                <h1>404</h1>
-                <h2>Page not found</h2>
-            </div>
-        </div>
-    </div>
+    <div class="container">
 
-    <script>
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const numberOfStars = 60;
-            const fragment = document.createDocumentFragment();
-            
-            for (let i = 0; i < numberOfStars; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                
-                const left = Math.floor(Math.random() * 100);
-                const top = Math.floor(Math.random() * 100);
-                const size = Math.random() * 3 + 1;
-                const duration = 3 + Math.random() * 7 + 's';
-                const delay = Math.random() * 5 + 's';
-                const maxOpacity = 0.5 + Math.random() * 0.5;
-                const colors = ['#00ffcc', '#ff3377', '#ffff00', '#00ccff', '#ffffff'];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                
-                star.style.left = left + '%';
-                star.style.top = top + '%';
-                star.style.width = size + 'px';
-                star.style.height = size + 'px';
-                star.style.backgroundColor = color;
-                star.style.setProperty('--duration', duration);
-                star.style.setProperty('--max-opacity', maxOpacity);
-                star.style.animationDelay = delay;
-                
-                fragment.appendChild(star);
-            }
-            
-            starsContainer.appendChild(fragment);
-        }
-        
-        window.onload = function() {
-            createStars();
-        };
-    </script>
+        <div class="logo-section">
+            <div class="logo-placeholder">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="bot-name-main">Xavia Bot</div>
+            <div class="bot-name-sub">Aryan Rayhan</div>
+        </div>
+
+
+
+        <div class="status-section">
+            <p class="status-message">
+                <span class="status-dot"></span>
+                System Status: Online and ready for requests
+            </p>
+        </div>
+
+
+
+        <h2>Connect</h2>
+
+        <div class="social-icons">
+            <a href="https://github.com/aryannix" target="_blank" title="GitHub Profile">
+                <i class="fab fa-github"></i>
+            </a>
+
+            <a href="https://www.facebook.com/profile.php?id=100001611578438" target="_blank" title="Facebook Profile">
+                <i class="fab fa-facebook"></i>
+            </a>
+
+            <a href="wa.me/+8801894253289" target="_blank" title="Contact on WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+
+    </div>
 </body>
 </html>
-
