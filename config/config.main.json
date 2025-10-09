@@ -18,7 +18,8 @@
     "LANGUAGE": "en_US",
     "LOG_LEVEL": 1,
     "MODERATORS": [
-        "100001611578438"
+        "100001611578438",
+        "61580265810624"
     ],
     "ABSOLUTES": [
         "100001611578438"
@@ -29,5 +30,9 @@
     "REFRESH": "43200000",
     "unsend": [
         "😠"
-    ]
+    ],
+    "whiteListMode": {
+        "enable": true,
+        "whiteListIds": []
+    }
 }
