@@ -6,7 +6,7 @@ import { pathToFileURL } from "url";
 const config = {
     name: "cmd",
     aliases: [],
-    version: "1.0",
+    version: "0.0.1",
     credits: "ArYAN",
     permissions: [2],
     cooldowns: 5,
