@@ -25,5 +25,24 @@
 }
 ```
 
+
+
+## example
+
+```
+const config = {
+name: "example",
+aliases: ["ex"],
+version: "0.0.1",
+credits: "ArYAN",
+nixprefix: true,
+permissions: [0],
+cooldowns: 0,
+description: ""
+usage: "",
+category: "ai"
+};
+```
+
 💡 Replace `!` with your prefix  
 💡 Use valid fbstate in appstate.json 
