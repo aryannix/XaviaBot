@@ -18,11 +18,10 @@
     "LANGUAGE": "en_US",
     "LOG_LEVEL": 1,
     "MODERATORS": [
-        "100001611578438",
-        "61580265810624"
+        "UID"
     ],
     "ABSOLUTES": [
-        "100001611578438"
+        "UID"
     ],
     "NAME": "nix bot",
     "PREFIX": "!",
