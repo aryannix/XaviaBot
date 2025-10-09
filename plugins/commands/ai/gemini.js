@@ -11,7 +11,8 @@ const config = {
   cooldowns: 3,
   description: "Ask Gemini AI - Talk with Gemini AI using Aryan's API",
   usage: "[your question]",
-  category: "ai"
+  category: "ai",
+  nixprefix: true
 };
 
 async function handleReply({ message }) {

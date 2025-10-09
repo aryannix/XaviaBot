@@ -270,15 +270,14 @@ async function handleCommand(event) {
         } else {
             const cmdName = args[0].slice(prefix.length)?.toLowerCase();
             const nixLangPath = resolvePath("./language/nix.txt");
-            let unknownMsg = `Command "${cmdName}" does not exist, type ${prefix}help to see all available commands`;
+            let unknownMsg = `The command you are using does not exist, type ${prefix}help to see all available commands`;
             
             try {
                 if (existsSync(nixLangPath)) {
                     const nixLang = readFileSync(nixLangPath, "utf8");
-                    const match = nixLang.match(/unknown=(.+)/);
+                    const match = nixLang.match(/prefix=(.+)/);
                     if (match) {
                         unknownMsg = match[1]
-                            .replace("{command}", cmdName)
                             .replace("{prefix}", prefix);
                     }
                 }
