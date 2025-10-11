@@ -12,6 +12,5 @@ async function onCall({ message, getLang }) {
 
 export default {
     config,
-    onCall,
-    getLang
+    onCall
 }
