@@ -13,6 +13,20 @@ const { isGlitch, isReplit, isGitHub } = environments;
 
 console.clear();
 
+// Display Bot Information
+const packageData = JSON.parse(readFileSync('./package.json', 'utf-8'));
+const configData = JSON.parse(readFileSync('./config/config.main.json', 'utf-8'));
+
+console.log('\x1b[36m--------------INFO--------------\x1b[0m');
+console.log(`\x1b[33mBOT NAME:\x1b[0m ${configData.NAME || 'XaviaBot'}`);
+console.log(`\x1b[33mVERSION:\x1b[0m ${packageData.version}`);
+console.log(`\x1b[33mPREFIX:\x1b[0m ${configData.PREFIX}`);
+console.log(`\x1b[33mLANGUAGE:\x1b[0m ${configData.LANGUAGE}`);
+console.log(`\x1b[33mNODE VERSION:\x1b[0m ${process.version}`);
+console.log(`\x1b[33mREFRESH:\x1b[0m ${configData.REFRESH ? configData.REFRESH + 'ms' : 'Disabled'}`);
+console.log('\x1b[36m--------------------------------\x1b[0m');
+console.log('');
+
 // Install newer node version on some old Repls
 function upNodeReplit() {
     return new Promise(resolve => {
@@ -85,17 +99,25 @@ async function checkUpdate() {
 // Child handler
 const _1_MINUTE = 60000;
 let restartCount = 0;
+let currentChild = null;
 
 async function main() {
+    // Kill existing child process if it exists
+    if (currentChild && !currentChild.killed) {
+        logger.warn("Killing existing child process...");
+        currentChild.kill('SIGTERM');
+        await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+
     await checkUpdate();
     await loadPlugins();
-    const child = spawn('node', ['--trace-warnings', '--experimental-import-meta-resolve', '--expose-gc', 'core/_build.js'], {
+    currentChild = spawn('node', ['--trace-warnings', '--experimental-import-meta-resolve', '--expose-gc', 'core/_build.js'], {
         cwd: process.cwd(),
         stdio: 'inherit',
         env: process.env
     });
 
-    child.on("close", async (code) => {
+    currentChild.on("close", async (code) => {
         handleRestartCount();
         if (code !== 0 && restartCount < 5) {
             console.log();
@@ -103,6 +125,11 @@ async function main() {
             logger.warn("Restarting...");
             await new Promise(resolve => setTimeout(resolve, 2000));
             main();
+        } else if (code === 0) {
+            // Clean shutdown, don't restart
+            console.log();
+            logger.system("Bot has been shut down successfully.");
+            process.exit(0);
         } else {
             console.log();
             logger.error("XaviaBot has stopped, press Ctrl + C to exit.");
@@ -118,4 +145,3 @@ function handleRestartCount() {
 }
 
 main();
-
