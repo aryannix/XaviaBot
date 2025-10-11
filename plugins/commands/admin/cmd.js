@@ -1,5 +1,5 @@
 import axios from "axios";
-import { writeFileSync } from "fs";
+import { writeFileSync, readdirSync, statSync } from "fs";
 import { resolve as resolvePath } from "path";
 import { pathToFileURL } from "url";
 
@@ -92,22 +92,32 @@ async function onCall({ message, args, getLang }) {
             const commandsPath = resolvePath(global.pluginsPath, "commands");
             
             let foundPath = null;
-            const categories = require("fs").readdirSync(commandsPath);
             
-            for (const category of categories) {
-                const categoryPath = resolvePath(commandsPath, category);
-                const stat = require("fs").statSync(categoryPath);
-                if (!stat.isDirectory()) continue;
+            try {
+                const categories = readdirSync(commandsPath);
                 
-                const possiblePath = resolvePath(categoryPath, `${commandName}.js`);
-                if (global.isExists(possiblePath, "file")) {
-                    foundPath = possiblePath;
-                    break;
+                for (const category of categories) {
+                    const categoryPath = resolvePath(commandsPath, category);
+                    
+                    try {
+                        const stat = statSync(categoryPath);
+                        if (!stat.isDirectory()) continue;
+                    } catch (err) {
+                        continue;
+                    }
+                    
+                    const possiblePath = resolvePath(categoryPath, `${commandName}.js`);
+                    if (global.isExists(possiblePath, "file")) {
+                        foundPath = possiblePath;
+                        break;
+                    }
                 }
+            } catch (err) {
+                return message.reply(getLang("loadedError", { name: commandName, error: err.message }));
             }
             
             if (!foundPath) {
-                return message.reply(getLang("loadedError", { name: commandName, error: "File not found" }));
+                return message.reply(getLang("loadedError", { name: commandName, error: "File not found in any category" }));
             }
             
             const result = await loadSingleCommand(foundPath, commandName);
@@ -142,7 +152,7 @@ async function onCall({ message, args, getLang }) {
         }
         
         else if (query === "unload" && args[1]) {
-            const commandName = args[1].toLowerCase();
+            const commandName = args[1].toLowerCase().replace(".js", "");
             
             if (global.plugins.commands.has(commandName)) {
                 global.plugins.commands.delete(commandName);
@@ -151,6 +161,13 @@ async function onCall({ message, args, getLang }) {
                 const aliases = global.plugins.commandsAliases.get(commandName);
                 if (aliases) {
                     global.plugins.commandsAliases.delete(commandName);
+                }
+                
+                // Also remove language data
+                for (const lang in global.data.langPlugin) {
+                    if (global.data.langPlugin[lang][commandName]) {
+                        delete global.data.langPlugin[lang][commandName];
+                    }
                 }
                 
                 return message.reply(getLang("unloaded", { name: commandName }));
