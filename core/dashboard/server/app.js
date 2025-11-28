@@ -19,7 +19,8 @@ const commands = ["help", "version"];
  */
 function startServer(serverAdminPassword) {
     const app = express();
-    const port = process.env.PORT || 3000;
+    const PORT = process.env.PORT || 3000;
+    const HOST = '0.0.0.0';
 
     app.use(express.json());
     app.use(express.static(path.resolve("core/dashboard/public")));
@@ -68,9 +69,9 @@ function startServer(serverAdminPassword) {
         return res.status(200).json(returnData);
     });
 
-    global.server = app.listen(port, () => {
+    global.server = app.listen(PORT, HOST, () => {
         logger.system(
-            getLang("build.start.serverStarted", { port, serverAdminPassword })
+            getLang("build.start.serverStarted", { port: PORT, serverAdminPassword: serverAdminPassword })
         );
     });
 

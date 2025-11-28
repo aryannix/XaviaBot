@@ -52,16 +52,11 @@ async function onCall({ message, args, getLang }) {
                     const filePath = join(categoryPath, file);
                     const code = readFileSync(filePath, "utf8");
                     
-                    let displayCode = code;
-                    if (code.length > 4000) {
-                        displayCode = code.substring(0, 4000) + "\n\n... (Code truncated, too long)";
-                    }
-                    
                     return message.reply(getLang("info", {
                         name: fileName,
                         category: category,
                         filename: file,
-                        code: displayCode
+                        code: code
                     }));
                 }
             }
@@ -78,16 +73,11 @@ async function onCall({ message, args, getLang }) {
                 const code = readFileSync(filePath, "utf8");
                 
                 if (code.includes(`name: "${searchName}"`) || code.includes(`name: '${searchName}'`)) {
-                    let displayCode = code;
-                    if (code.length > 4000) {
-                        displayCode = code.substring(0, 4000) + "\n\n... (Code truncated, too long)";
-                    }
-                    
                     return message.reply(getLang("info", {
                         name: searchName,
                         category: category,
                         filename: file,
-                        code: displayCode
+                        code: code
                     }));
                 }
             }
