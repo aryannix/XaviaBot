@@ -7,7 +7,7 @@ import ytSearch from "yt-search";
 const config = {
     name: "sing",
     aliases: ["music", "song", "play"],
-    version: "2.0.1",
+    version: "2.0.2",
     permissions: [0, 1, 2],
     credits: "ArYAN (Xavia Compatible)",
     description: "Search and download music from YouTube",
@@ -44,7 +44,7 @@ async function onCall({ message, args, getLang }) {
     }
 
     const query = args.join(" ");
-    const waitMsg = await message.reply(getLang("sing.searching"));
+    await message.reply(getLang("sing.searching"));
 
     try {
         let videoUrl;
@@ -56,7 +56,6 @@ async function onCall({ message, args, getLang }) {
             // Search on YouTube
             const searchResults = await ytSearch(query);
             if (!searchResults || !searchResults.videos || searchResults.videos.length === 0) {
-                message.unsend(waitMsg.messageID);
                 return message.reply(getLang("sing.noResults", { query }));
             }
             videoUrl = searchResults.videos[0].url;
@@ -71,8 +70,8 @@ async function onCall({ message, args, getLang }) {
             throw new Error(getLang("sing.apiError"));
         }
 
-        // Update waiting message
-        message.edit(getLang("sing.downloading", { title }), waitMsg.messageID);
+        // Send downloading message
+        await message.reply(getLang("sing.downloading", { title }));
 
         // Create cache directory if it doesn't exist
         const cachePath = join(process.cwd(), "plugins", "commands", "cache");
@@ -105,9 +104,6 @@ async function onCall({ message, args, getLang }) {
             attachment: createReadStream(filePath),
         });
 
-        // Cleanup
-        message.unsend(waitMsg.messageID);
-        
         // Delete file after a short delay
         setTimeout(() => {
             if (existsSync(filePath)) {
@@ -121,7 +117,6 @@ async function onCall({ message, args, getLang }) {
 
     } catch (error) {
         console.error("Sing command error:", error);
-        message.unsend(waitMsg.messageID);
         return message.reply(getLang("sing.error", { error: error.message || "Unknown error" }));
     }
 }
