@@ -55,29 +55,3 @@ npm install && npm start
 • **RFS-ADRENO** 
 modified by **Aryan Rayhan**
 
-## Supporters?
-
-• **TruongMini**:
-[Github](https://github.com/truong9c2208) -
-[Facebook](https://www.facebook.com/shibasama.dev)
-<br /><br />
-• Many thanks to TesterTeam for all the testing, feedbacks and the other Bot Projects ([c3cbot](https://github.com/c3cbot/legacy-c3cbot) - [miraibot](https://github.com/miraiPr0ject/miraiv2) - [kb2abot](https://github.com/kb2ateam/kb2abot-client)) that inspired me to create XaviaBot
-
-## Translators
-
-• **Vietnamese** (Main Language): RFS-ADRENO<br />
-• **English**: RFS-ADRENO<br />
-• **Arabic**: Malk: [Facebook](https://www.facebook.com/profile.php?id=100070177323616)<br />
-
-## Like our work?
-
-• Give us a star!<br />
-• Support us via:<br />
-&nbsp;&nbsp;&nbsp;» [Paypal](https://www.paypal.com/paypalme/dungto213)<br />
-&nbsp;&nbsp;&nbsp;» [Momo](https://me.momo.vn/gMIMulsaUqsbf6iAiXt3)<br />
-&nbsp;&nbsp;&nbsp;» [Buy me a Coffee!](https://ko-fi.com/xaviateam)
-
-## License
-
-• This project is licensed under the MIT License<br />
-• Go to [LICENSE](https://github.com/XaviaTeam/XaviaBot/blob/main/LICENSE) file
