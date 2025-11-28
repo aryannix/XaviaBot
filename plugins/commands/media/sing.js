@@ -44,7 +44,9 @@ async function onCall({ message, args, getLang }) {
     }
 
     const query = args.join(" ");
-    await message.reply(getLang("sing.searching"));
+    
+    // Send only "Please wait..." and get message ID to unsend later
+    const waitingMsg = await message.reply("Please wait...");
 
     try {
         let videoUrl;
@@ -56,6 +58,10 @@ async function onCall({ message, args, getLang }) {
             // Search on YouTube
             const searchResults = await ytSearch(query);
             if (!searchResults || !searchResults.videos || searchResults.videos.length === 0) {
+                // Unsend waiting message before showing error
+                if (waitingMsg?.messageID) {
+                    await message.unsend(waitingMsg.messageID);
+                }
                 return message.reply(getLang("sing.noResults", { query }));
             }
             videoUrl = searchResults.videos[0].url;
@@ -67,11 +73,12 @@ async function onCall({ message, args, getLang }) {
         const { status, downloadUrl, title } = apiResponse.data;
 
         if (!status || !downloadUrl) {
+            // Unsend waiting message before showing error
+            if (waitingMsg?.messageID) {
+                await message.unsend(waitingMsg.messageID);
+            }
             throw new Error(getLang("sing.apiError"));
         }
-
-        // Send downloading message
-        await message.reply(getLang("sing.downloading", { title }));
 
         // Create cache directory if it doesn't exist
         const cachePath = join(process.cwd(), "plugins", "commands", "cache");
@@ -98,9 +105,13 @@ async function onCall({ message, args, getLang }) {
             writer.on("error", reject);
         });
 
-        // Send audio file
+        // Unsend the "Please wait..." message
+        if (waitingMsg?.messageID) {
+            await message.unsend(waitingMsg.messageID);
+        }
+
+        // Send audio file WITHOUT any text
         await message.reply({
-            body: getLang("sing.success", { title }),
             attachment: createReadStream(filePath),
         });
 
@@ -117,6 +128,10 @@ async function onCall({ message, args, getLang }) {
 
     } catch (error) {
         console.error("Sing command error:", error);
+        // Unsend waiting message before showing error
+        if (waitingMsg?.messageID) {
+            await message.unsend(waitingMsg.messageID);
+        }
         return message.reply(getLang("sing.error", { error: error.message || "Unknown error" }));
     }
 }
