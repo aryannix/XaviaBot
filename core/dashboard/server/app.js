@@ -19,7 +19,7 @@ const commands = ["help", "version"];
  */
 function startServer(serverAdminPassword) {
     const app = express();
-    const PORT = process.env.PORT || 3000;
+    const PORT = process.env.DASHBOARD_PORT || 5000;
     const HOST = '0.0.0.0';
 
     app.use(express.json());
@@ -69,11 +69,20 @@ function startServer(serverAdminPassword) {
         return res.status(200).json(returnData);
     });
 
-    global.server = app.listen(PORT, HOST, () => {
+    const server = app.listen(PORT, HOST, () => {
         logger.system(
             getLang("build.start.serverStarted", { port: PORT, serverAdminPassword: serverAdminPassword })
         );
     });
+
+    server.on('error', (err) => {
+        if (err.code === 'EADDRINUSE') {
+            console.log(`[DASHBOARD] Port ${PORT} is already in use. Dashboard server not started.`);
+        } else {
+            console.error('[DASHBOARD] Server error:', err);
+        }
+    });
+
 
     if (global.config.AUTO_PING_SERVER && (isReplit || isGlitch)) {
         logger.warn("AUTO PING IS NOT AVAILABLE");
