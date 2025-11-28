@@ -186,13 +186,19 @@ async function handleCommand(event, xDatabase) {
     let commandArgs = [];
     let isNoPrefix = false;
 
-    // Safety check for args
-    if (!args || !Array.isArray(args)) return;
+    // Safety check for args - allow empty array but not null/undefined
+    if (!args || !Array.isArray(args)) {
+        console.log("Invalid args:", args);
+        return;
+    }
 
-    if (args.length > 0 && args[0].startsWith(prefix)) {
-        commandName = findCommand(args[0].slice(prefix.length)?.toLowerCase());
-        commandArgs = args.slice(1);
-    } else if (args.length > 0) {
+    if (args.length > 0 && args[0] && args[0].startsWith(prefix)) {
+        const cmdPart = args[0].slice(prefix.length)?.toLowerCase();
+        if (cmdPart) {
+            commandName = findCommand(cmdPart);
+            commandArgs = args.slice(1);
+        }
+    } else if (args.length > 0 && args[0]) {
         const potentialCommand = findCommand(args[0]?.toLowerCase());
         if (potentialCommand) {
             const commandConfig = global.plugins.commandsConfig.get(potentialCommand);
