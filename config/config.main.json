@@ -1,6 +1,6 @@
 {
     "APPSTATE_PATH": "./appstate.json",
-    "APPSTATE_PROTECTION": true,
+    "APPSTATE_PROTECTION": false,
     "AUTO_PING_SERVER": true,
     "ALLOW_INBOX": false,
     "DATABASE": "JSON",

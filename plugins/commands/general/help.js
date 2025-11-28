@@ -76,7 +76,7 @@ function getCommandName(commandName) {
     return null
 }
 
-async function onCall({ message, args, getLang, userPermissions, prefix }) {
+async function onCall({ message, args, getLang, userPermissions, prefix, data }) {
     const { commandsConfig } = global.plugins;
     const commandName = args[0]?.toLowerCase();
 

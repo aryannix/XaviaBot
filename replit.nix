@@ -1,5 +1,7 @@
 { pkgs }: {
 	deps = [
+   pkgs.pixman
+   pkgs.python3
    pkgs.librsvg
    pkgs.giflib
    pkgs.libjpeg
