@@ -218,6 +218,7 @@ async function onCall({ message, args, getLang }) {
                 return message.reply(getLang("unload.notfound", { name: commandName }));
             }
         }
+        }
     } catch (error) {
         console.error("CMD Error:", error);
         return message.reply(`Error: ${error.message || "Unknown error occurred"}`);
