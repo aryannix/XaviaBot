@@ -1,3 +1,4 @@
+
 const langData = {
     "en_US": {
         "prefix.get": "Prefix is: {prefix}"
@@ -8,11 +9,12 @@ const langData = {
 }
 
 function onCall({ message, getLang, data }) {
-    if (message.body == "prefix" && message.senderID != global.botID) {
-        message.reply(getLang("prefix.get", {
-            prefix: data?.thread?.data?.prefix || global.config.PREFIX
-        }));
-    }
+    // Disabled to prevent duplicate response with prefix command
+    // if (message.body == "prefix" && message.senderID != global.botID) {
+    //     message.reply(getLang("prefix.get", {
+    //         prefix: data?.thread?.data?.prefix || global.config.PREFIX
+    //     }));
+    // }
 
     return;
 }

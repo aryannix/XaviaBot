@@ -1,64 +1,117 @@
-const a = require("axios");
-const b = require("fs");
-const c = require("path");
-const d = require("yt-search");
 
-module.exports = {
-  config: {
+import axios from "axios";
+import { createReadStream, createWriteStream, unlinkSync, existsSync } from "fs";
+import { join } from "path";
+import ytSearch from "yt-search";
+
+const config = {
     name: "sing",
-    aliases: ["music", "song"],
-    version: "0.0.1",
-    author: "ArYAN",
-    countDown: 5,
-    role: 0,
-    shortDescription: "Sing tomake chai",
-    longDescription: "Search and download music from YouTube",
-    category: "MUSIC",
-    guide: "/music <song name or YouTube URL>"
-  },
+    aliases: ["music", "song", "play"],
+    version: "2.0.0",
+    permissions: [0, 1, 2],
+    credits: "ArYAN (Xavia Compatible)",
+    description: "Search and download music from YouTube",
+    usage: "[song name or YouTube URL]",
+    cooldown: 10,
+    nixprefix: true,
+    vip: false,
+};
 
-  onStart: async function ({ api: e, event: f, args: g }) {
-    if (!g.length) return e.sendMessage("❌ Provide a song name or YouTube URL.", f.threadID, f.messageID);
+const langData = {
+    "en_US": {
+        "sing.noInput": "❌ Please provide a song name or YouTube URL.",
+        "sing.searching": "🎵 Searching for music, please wait...",
+        "sing.downloading": "⏬ Downloading: {title}",
+        "sing.success": "🎵 𝗠𝗨𝗦𝗜𝗖\n━━━━━━━━━━━━━━━\n\n{title}",
+        "sing.noResults": "❌ No results found for: {query}",
+        "sing.error": "❌ Failed to download song: {error}",
+        "sing.apiError": "❌ API failed to return download URL.",
+    },
+    "vi_VN": {
+        "sing.noInput": "❌ Vui lòng cung cấp tên bài hát hoặc URL YouTube.",
+        "sing.searching": "🎵 Đang tìm kiếm nhạc, vui lòng đợi...",
+        "sing.downloading": "⏬ Đang tải: {title}",
+        "sing.success": "🎵 𝗠𝗨𝗦𝗜𝗖\n━━━━━━━━━━━━━━━\n\n{title}",
+        "sing.noResults": "❌ Không tìm thấy kết quả cho: {query}",
+        "sing.error": "❌ Không thể tải bài hát: {error}",
+        "sing.apiError": "❌ API không trả về URL tải xuống.",
+    },
+};
 
-    let h = g.join(" ");
-    const i = await e.sendMessage("🎵 Please wait...", f.threadID, null, f.messageID);
+async function onCall({ message, args, getLang }) {
+    if (!args || args.length === 0) {
+        return message.reply(getLang("sing.noInput"));
+    }
+
+    const query = args.join(" ");
+    const waitMsg = await message.reply(getLang("sing.searching"));
 
     try {
-      let j;
-      if (h.startsWith("http")) {
-        j = h;
-      } else {
-        const k = await d(h);
-        if (!k || !k.videos.length) throw new Error("No results found.");
-        j = k.videos[0].url;
-      }
+        let videoUrl;
 
-      const l = `http://65.109.80.126:20409/aryan/play?url=${encodeURIComponent(j)}`;
-      const m = await a.get(l);
-      const n = m.data;
+        // Check if input is a YouTube URL
+        if (query.startsWith("http://") || query.startsWith("https://")) {
+            videoUrl = query;
+        } else {
+            // Search on YouTube
+            const searchResults = await ytSearch(query);
+            if (!searchResults || !searchResults.videos || searchResults.videos.length === 0) {
+                message.unsend(waitMsg.messageID);
+                return message.reply(getLang("sing.noResults", { query }));
+            }
+            videoUrl = searchResults.videos[0].url;
+        }
 
-      if (!n.status || !n.downloadUrl) throw new Error("API failed to return download URL.");
+        // Download from API
+        const apiUrl = `http://65.109.80.126:20409/aryan/play?url=${encodeURIComponent(videoUrl)}`;
+        const apiResponse = await axios.get(apiUrl);
+        const { status, downloadUrl, title } = apiResponse.data;
 
-      const o = `${n.title}.mp3`.replace(/[\\/:"*?<>|]/g, "");
-      const p = c.join(__dirname, o);
+        if (!status || !downloadUrl) {
+            throw new Error(getLang("sing.apiError"));
+        }
 
-      const q = await a.get(n.downloadUrl, { responseType: "arraybuffer" });
-      b.writeFileSync(p, q.data);
+        // Update waiting message
+        message.edit(getLang("sing.downloading", { title }), waitMsg.messageID);
 
-      await e.sendMessage(
-        { attachment: b.createReadStream(p), body: `🎵 𝗠𝗨𝗦𝗜𝗖\n━━━━━━━━━━━━━━━\n\n${n.title}` },
-        f.threadID,
-        () => {
-          b.unlinkSync(p);
-          e.unsendMessage(i.messageID);
-        },
-        f.messageID
-      );
+        // Create safe filename
+        const safeTitle = title.replace(/[\\/:"*?<>|]/g, "");
+        const fileName = `${safeTitle}.mp3`;
+        const cachePath = join(process.cwd(), "plugins", "commands", "cache");
+        const filePath = join(cachePath, fileName);
 
-    } catch (r) {
-      console.error(r);
-      e.sendMessage(`❌ Failed to download song: ${r.message}`, f.threadID, f.messageID);
-      e.unsendMessage(i.messageID);
+        // Download audio file
+        const audioResponse = await axios.get(downloadUrl, { responseType: "stream" });
+        const writer = createWriteStream(filePath);
+
+        audioResponse.data.pipe(writer);
+
+        await new Promise((resolve, reject) => {
+            writer.on("finish", resolve);
+            writer.on("error", reject);
+        });
+
+        // Send audio file
+        await message.reply({
+            body: getLang("sing.success", { title }),
+            attachment: createReadStream(filePath),
+        });
+
+        // Cleanup
+        message.unsend(waitMsg.messageID);
+        if (existsSync(filePath)) {
+            unlinkSync(filePath);
+        }
+
+    } catch (error) {
+        console.error("Sing command error:", error);
+        message.unsend(waitMsg.messageID);
+        return message.reply(getLang("sing.error", { error: error.message }));
     }
-  }
+}
+
+export default {
+    config,
+    langData,
+    onCall,
 };

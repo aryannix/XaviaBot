@@ -12,21 +12,21 @@ const config = {
 
 const langData = {
     "en_US": {
-        "prefix.get": "Default prefix: {default}\nCurrent prefix: {current}",
+        "prefix.get": "Current prefix: {current}",
         "prefix.set": "Prefix has been set to {newPrefix}",
         "prefix.tooLong": "Prefix must be less than 5 characters",
         "notGroup": "This command only works in group",
         "threadDataNotExists": "Thread data not exists",
     },
     "vi_VN": {
-        "prefix.get": "Prefix mặc định: {default}\nPrefix hiện tại: {current}",
+        "prefix.get": "Prefix hiện tại: {current}",
         "prefix.set": "Prefix đã được đặt thành {newPrefix}",
         "prefix.tooLong": "Prefix phải ít hơn 5 ký tự",
         "notGroup": "Lệnh này chỉ hoạt động trong nhóm",
         "threadDataNotExists": "Dữ liệu nhóm không tồn tại",
     },
     "ar_VN": {
-        "prefix.get": "بادئة افتراضية: {default}\nالبادئة الحالية: {current}",
+        "prefix.get": "البادئة الحالية: {current}",
         "prefix.set": "تم تعيين البادئة على {newPrefix}",
         "prefix.tooLong": "يجب أن تكون البادئة أقل من 5 أحرف",
         "notGroup": "هذا الأمر يعمل فقط في المجموعة",
@@ -46,7 +46,6 @@ async function onCall({ message, args, data, getLang, prefix }) {
     if (!args[0])
         return message.reply(
             getLang("prefix.get", {
-                default: global.config.PREFIX,
                 current: prefix,
             })
         );
