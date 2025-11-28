@@ -1,5 +1,9 @@
 const config = {
-    credits: "XaviaTeam"
+    name: "uid",
+    description: "Get user ID",
+    credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false
 }
 
 function onCall({ message }) {

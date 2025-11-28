@@ -10,7 +10,9 @@ const config = {
     usage: "<install|load|loadall|unload> [command name] [code]",
     credits: "Aryan Rayhan",
     permissions: [2],
-    cooldown: 3
+    cooldown: 3,
+    nixprefix: true,
+    vip: false
 };
 
 const langData = {

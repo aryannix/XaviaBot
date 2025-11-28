@@ -1,5 +1,8 @@
 const config = {
-    credits: "XaviaTeam"
+    name: "afk",
+    credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false
 }
 
 const langData = {

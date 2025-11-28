@@ -4,7 +4,9 @@ const config = {
     usage: "[text1] | [text2]",
     cooldown: 3,
     permissions: [0, 1, 2],
-    credits: "XaviaTeam"
+    credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false
 }
 
 const langData = {

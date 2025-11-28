@@ -7,6 +7,8 @@ const config = {
     cooldown: 5,
     permissions: [0, 1, 2],
     credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false,
 };
 
 async function onCall({ message, args }) {

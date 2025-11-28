@@ -1,10 +1,13 @@
 const config = {
+    name: "prefix",
     aliases: ["pf", "setprefix", "setpf"],
     permissions: [1, 2],
     description: "Set prefix for group",
     usage: "<prefix>",
     cooldown: 5,
     credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false,
 };
 
 const langData = {

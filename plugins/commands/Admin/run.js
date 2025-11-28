@@ -5,7 +5,9 @@ const config = {
     description: "Run bot scripts",
     usage: "<script>",
     credits: "XaviaTeam",
-    isAbsolute: true
+    isAbsolute: true,
+    nixprefix: true,
+    vip: false
 }
 
 function onCall({ message, args }) {

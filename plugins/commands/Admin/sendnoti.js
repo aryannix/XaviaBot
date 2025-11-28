@@ -4,7 +4,9 @@ const config = {
     description: "Send notification to all groups",
     usage: "[message/reply]",
     permissions: [2],
-    credits: "XaviaTeam"
+    credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false
 }
 
 const langData = {

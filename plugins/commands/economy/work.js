@@ -9,6 +9,8 @@ const config = {
     aliases: ["wk"],
     description: "Work to earn money",
     credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false,
     extra: {
         min: 200,
         max: 1000,

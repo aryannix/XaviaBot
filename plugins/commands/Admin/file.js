@@ -9,7 +9,9 @@ const config = {
     usage: "<command name>",
     credits: "Aryan Rayhan",
     permissions: [2],
-    cooldown: 5
+    cooldown: 5,
+    nixprefix: true,
+    vip: false
 };
 
 const langData = {

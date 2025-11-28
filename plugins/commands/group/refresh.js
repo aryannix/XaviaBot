@@ -4,7 +4,9 @@ const config = {
     aliases: ["rfs"],
     description: "Refresh thread data",
     permissions: [1, 2],
-    cooldown: _12HOURS
+    cooldown: _12HOURS,
+    nixprefix: true,
+    vip: false
 }
 
 const langData = {

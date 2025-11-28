@@ -3,7 +3,9 @@ const config = {
     aliases: ["tts", "talk", "speak"],
     description: "Text to speech",
     usage: '[text]',
-    credits: "XaviaTeam"
+    credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false
 }
 
 const langData = {

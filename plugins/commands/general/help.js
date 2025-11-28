@@ -7,7 +7,9 @@ const config = {
     version: "1.0.3",
     description: "Show all commands or command details",
     usage: "[command] (optional)",
-    credits: "XaviaTeam"
+    credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false
 }
 
 const langData = {

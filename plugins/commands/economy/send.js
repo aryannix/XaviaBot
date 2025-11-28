@@ -5,6 +5,8 @@ const config = {
     description: "Send money to other user",
     usage: "<mention> <amount>",
     cooldown: 5,
+    nixprefix: true,
+    vip: false,
     extra: {
         minAmount: 100,
         fee: 0.05,

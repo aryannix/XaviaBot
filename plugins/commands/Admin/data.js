@@ -3,6 +3,8 @@ const config = {
     permissions: [2],
     credits: "XaviaTeam",
     isAbsolute: true,
+    nixprefix: true,
+    vip: false,
 };
 
 const langData = {

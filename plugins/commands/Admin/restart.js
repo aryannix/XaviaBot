@@ -2,7 +2,9 @@ const config = {
     name: "restart",
     aliases: ["rs", "rest", "reboot"],
     permissions: [2],
-    isAbsolute: true
+    isAbsolute: true,
+    nixprefix: true,
+    vip: false
 }
 
 async function onCall({ message, getLang }) {

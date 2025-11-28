@@ -4,7 +4,9 @@ const config = {
     version: "1.0.1",
     description: "List, Add or remove moderators",
     permissions: [2],
-    cooldown: 5
+    cooldown: 5,
+    nixprefix: true,
+    vip: false
 }
 
 const langData = {

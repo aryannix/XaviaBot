@@ -3,10 +3,13 @@ import { writeFileSync } from 'fs';
 import { join } from 'path';
 
 const config = {
+    name: "rank",
     description: 'Get your global/local rank',
     usage: "[-g/-l] [@mention/reply]",
     credits: "XaviaTeam",
-    cooldown: 10
+    cooldown: 10,
+    nixprefix: true,
+    vip: false
 }
 
 function progressBar(ctx, x, y, width, radius, progress) {

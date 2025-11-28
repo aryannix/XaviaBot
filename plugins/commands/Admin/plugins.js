@@ -8,6 +8,8 @@ const config = {
     usage: "[reload]/[list]/[install]",
     permissions: [2],
     credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false,
 };
 
 const langData = {

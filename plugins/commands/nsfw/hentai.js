@@ -5,7 +5,9 @@ const config = {
     cooldown: 3,
     permissions: [0, 1, 2],
     credits: "XaviaTeam",
-    nsfw: true
+    nsfw: true,
+    nixprefix: true,
+    vip: false
 }
 
 const langData = {

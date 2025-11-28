@@ -5,6 +5,8 @@ const config = {
     description: "Set money of a user",
     usage: "<reply/tag/me> <amount>",
     credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false,
 };
 
 const langData = {

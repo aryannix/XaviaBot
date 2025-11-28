@@ -5,7 +5,9 @@ const config = {
     description: "Menion all members in group",
     usage: "<text>",
     cooldown: 10,
-    credits: "XaviaTeam"
+    credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false
 }
 
 const langData = {

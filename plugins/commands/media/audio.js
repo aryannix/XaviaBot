@@ -14,6 +14,8 @@ const config = {
     usage: '<keyword/url>',
     cooldown: 30,
     credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false,
     extra: {
         "MAX_SONGS": 6
     }

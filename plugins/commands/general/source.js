@@ -1,7 +1,9 @@
 const config = {
     name: "source",
     aliases: ["code", "about"],
-    description: "Show source code of bot"
+    description: "Show source code of bot",
+    nixprefix: true,
+    vip: false
 }
 
 const langData = {

@@ -7,6 +7,8 @@ const config = {
     description: "Play sicbo with bot.",
     usage: "[tai/xiu] [bet] | [big/small] [bet] (default bet is 50)",
     credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false,
     extra: {
         minbet: 50
     }

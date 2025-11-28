@@ -5,6 +5,8 @@ const config = {
     aliases: ["claim"],
     description: "Claim daily reward",
     credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false,
     extra: {
         min: 300,
         max: 1000,

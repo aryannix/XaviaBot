@@ -12,6 +12,8 @@ const config = {
     usage: "<song> | <pico> | <pull>",
     cooldown: 5,
     credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false,
     extra: {
         pullRate: {
             _SPECIAL: 2,

@@ -6,7 +6,9 @@ const config = {
     usage: "[text/reply/help]",
     cooldown: 3,
     permissions: [1, 2],
-    credits: "XaviaTeam"
+    credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false
 }
 
 const langData = {

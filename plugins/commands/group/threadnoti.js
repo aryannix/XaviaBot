@@ -4,7 +4,9 @@ const config = {
     description: "Turn on/off thread notification for yourself",
     usage: "[on/off]",
     cooldown: 5,
-    credits: "XaviaTeam"
+    credits: "XaviaTeam",
+    nixprefix: true,
+    vip: false
 }
 
 const langData = {

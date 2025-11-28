@@ -10,7 +10,9 @@ const config = {
     description: "Download video tiktok no watermark.",
     usage: "[url]",
     credits: "XaviaTeam",
-    cooldown: 5
+    cooldown: 5,
+    nixprefix: true,
+    vip: false
 }
 
 const langData = {

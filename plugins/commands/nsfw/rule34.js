@@ -6,6 +6,8 @@ const config = {
     permissions: [0, 1, 2],
     credits: "XaviaTeam",
     nsfw: true,
+    nixprefix: true,
+    vip: false,
     extra: {
         USAGE_COST: 1000,
     },
