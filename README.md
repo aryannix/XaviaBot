@@ -52,12 +52,8 @@ npm install && npm start
 
 ## Authors
 
-• **RFS-ADRENO** (Lead Author):
-[Github](https://github.com/RFS-ADRENO) -
-[Facebook](https://www.facebook.com/Dungto213) -
-[Discord](https://discord.gg/a5uKHKSPww) -
-[Youtube](https://www.youtube.com/channel/UCmL-430tKfEJYJ1rzBOCOjA) -
-[Mail](mailto:xaviateam@protonmail.com)<br />
+• **RFS-ADRENO** 
+modified by **Aryan Rayhan**
 
 ## Supporters?
 
