@@ -11,6 +11,9 @@
 - Created cmd command for dynamic command management
 - Created file command to display command source code
 - Enhanced console output with colored BOT INFO and OWNER INFO
+- **Added nixprefix: true and vip: false to ALL 81 commands**
+- **Created admin command with add/remove/list functionality and shorthand support (-a, -r, -l)**
+- **Fixed cmd.js syntax error (missing switch closing bracket)**
 
 ## Project Structure
 ```
@@ -70,6 +73,13 @@ VIP UIDs are set in `config/config.main.json`:
 ### 4. file Command (Admin Only)
 - `file <command name>` - Show command source code
 
+### 5. admin Command (Admin Only)
+Manage temporary admins (until bot restart):
+- `admin -a @user` or `admin add @user` - Add temporary admin
+- `admin -r @user` or `admin remove @user` - Remove temporary admin
+- `admin -l` or `admin list` - List all temporary admins
+- Can also reply to a message with `admin add` or `admin remove`
+
 ## Configuration
 Edit `config/config.main.json`:
 ```json
@@ -86,7 +96,7 @@ Edit `config/config.main.json`:
 }
 ```
 
-### 5. Unsend Reaction Feature
+### 6. Unsend Reaction Feature
 Admin/Moderator can react with 😠 emoji on bot's message to unsend it:
 - `UNSEND.enabled: true` - Enable unsend feature
 - `UNSEND.enabled: false` - Disable unsend feature
