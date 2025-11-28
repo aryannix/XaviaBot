@@ -107,8 +107,20 @@ async function onCall({ message, args, getLang, data }) {
             
             threadAdmins.add(targetID);
             
+            // Add to config.json MODERATORS if not already there
             if (!global.config.MODERATORS.includes(targetID)) {
                 global.config.MODERATORS.push(targetID);
+                
+                // Save to config file
+                try {
+                    const fs = await import('fs/promises');
+                    const configPath = './config/config.main.json';
+                    const configData = JSON.parse(await fs.readFile(configPath, 'utf8'));
+                    configData.MODERATORS = global.config.MODERATORS;
+                    await fs.writeFile(configPath, JSON.stringify(configData, null, 4));
+                } catch (error) {
+                    console.error('Failed to save config:', error);
+                }
             }
             
             const name = await getUserName(targetID);
@@ -126,25 +138,49 @@ async function onCall({ message, args, getLang, data }) {
             
             threadAdmins.delete(targetID);
             
+            // Remove from config.json MODERATORS
             const modIndex = global.config.MODERATORS.indexOf(targetID);
             if (modIndex > -1) {
                 global.config.MODERATORS.splice(modIndex, 1);
+                
+                // Save to config file
+                try {
+                    const fs = await import('fs/promises');
+                    const configPath = './config/config.main.json';
+                    const configData = JSON.parse(await fs.readFile(configPath, 'utf8'));
+                    configData.MODERATORS = global.config.MODERATORS;
+                    await fs.writeFile(configPath, JSON.stringify(configData, null, 4));
+                } catch (error) {
+                    console.error('Failed to save config:', error);
+                }
             }
             
             const name = await getUserName(targetID);
             return message.reply(getLang("removedAdmin", { name }));
             
         } else if (input === "-l" || input === "list" || input === "-list") {
-            if (threadAdmins.size === 0) {
-                return message.reply(getLang("noAdmins"));
-            }
-            
             const adminList = [];
             let index = 1;
-            for (const adminID of threadAdmins) {
+            
+            // Show config.json moderators first
+            const configAdmins = global.config.MODERATORS || [];
+            for (const adminID of configAdmins) {
                 const name = await getUserName(adminID);
-                adminList.push(`${index}. ${name} (${adminID})`);
+                adminList.push(`${index}. ${name} (${adminID}) [Config]`);
                 index++;
+            }
+            
+            // Then show temporary admins
+            for (const adminID of threadAdmins) {
+                if (!configAdmins.includes(adminID)) {
+                    const name = await getUserName(adminID);
+                    adminList.push(`${index}. ${name} (${adminID}) [Temp]`);
+                    index++;
+                }
+            }
+            
+            if (adminList.length === 0) {
+                return message.reply(getLang("noAdmins"));
             }
             
             return message.reply(getLang("adminList", { list: adminList.join("\n") }));
