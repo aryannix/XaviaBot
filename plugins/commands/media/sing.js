@@ -1,13 +1,13 @@
 
 import axios from "axios";
-import { createReadStream, createWriteStream, unlinkSync, existsSync } from "fs";
+import { createReadStream, createWriteStream, unlinkSync, existsSync, mkdirSync } from "fs";
 import { join } from "path";
 import ytSearch from "yt-search";
 
 const config = {
     name: "sing",
     aliases: ["music", "song", "play"],
-    version: "2.0.0",
+    version: "2.0.1",
     permissions: [0, 1, 2],
     credits: "ArYAN (Xavia Compatible)",
     description: "Search and download music from YouTube",
@@ -64,7 +64,7 @@ async function onCall({ message, args, getLang }) {
 
         // Download from API
         const apiUrl = `http://65.109.80.126:20409/aryan/play?url=${encodeURIComponent(videoUrl)}`;
-        const apiResponse = await axios.get(apiUrl);
+        const apiResponse = await axios.get(apiUrl, { timeout: 30000 });
         const { status, downloadUrl, title } = apiResponse.data;
 
         if (!status || !downloadUrl) {
@@ -74,16 +74,24 @@ async function onCall({ message, args, getLang }) {
         // Update waiting message
         message.edit(getLang("sing.downloading", { title }), waitMsg.messageID);
 
-        // Create safe filename
-        const safeTitle = title.replace(/[\\/:"*?<>|]/g, "");
-        const fileName = `${safeTitle}.mp3`;
+        // Create cache directory if it doesn't exist
         const cachePath = join(process.cwd(), "plugins", "commands", "cache");
+        if (!existsSync(cachePath)) {
+            mkdirSync(cachePath, { recursive: true });
+        }
+
+        // Create safe filename
+        const safeTitle = title.replace(/[\\/:"*?<>|]/g, "").substring(0, 100);
+        const fileName = `${Date.now()}_${safeTitle}.mp3`;
         const filePath = join(cachePath, fileName);
 
         // Download audio file
-        const audioResponse = await axios.get(downloadUrl, { responseType: "stream" });
+        const audioResponse = await axios.get(downloadUrl, { 
+            responseType: "stream",
+            timeout: 60000
+        });
+        
         const writer = createWriteStream(filePath);
-
         audioResponse.data.pipe(writer);
 
         await new Promise((resolve, reject) => {
@@ -99,14 +107,22 @@ async function onCall({ message, args, getLang }) {
 
         // Cleanup
         message.unsend(waitMsg.messageID);
-        if (existsSync(filePath)) {
-            unlinkSync(filePath);
-        }
+        
+        // Delete file after a short delay
+        setTimeout(() => {
+            if (existsSync(filePath)) {
+                try {
+                    unlinkSync(filePath);
+                } catch (err) {
+                    console.error("Failed to delete file:", err);
+                }
+            }
+        }, 5000);
 
     } catch (error) {
         console.error("Sing command error:", error);
         message.unsend(waitMsg.messageID);
-        return message.reply(getLang("sing.error", { error: error.message }));
+        return message.reply(getLang("sing.error", { error: error.message || "Unknown error" }));
     }
 }
 
