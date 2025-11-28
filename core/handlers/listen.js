@@ -84,9 +84,14 @@ export default async function handleListen(listenerID, xDatabase) {
         switch (event.type) {
             case "message":
             case "message_reply":
-                handleMessage({ ...event }, xDatabase);
-                handleReply({ ...event }, xDatabase);
-                handleCommand({ ...event }, xDatabase);
+                // Extract args from message body
+                const messageBody = event.body || "";
+                const args = messageBody.trim().split(/\s+/);
+                const eventWithArgs = { ...event, args };
+                
+                handleMessage(eventWithArgs, xDatabase);
+                handleReply(eventWithArgs, xDatabase);
+                handleCommand(eventWithArgs, xDatabase);
                 break;
             case "message_reaction":
                 handleReaction({ ...event }, xDatabase);
