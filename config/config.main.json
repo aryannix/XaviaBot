@@ -16,8 +16,7 @@
     "LANGUAGE": "en_US",
     "LOG_LEVEL": 1,
     "MODERATORS": [
-        "100001611578438",
-        "61578683249520"
+        "100001611578438"
     ],
     "ABSOLUTES": [
         "100001611578438"
@@ -29,7 +28,7 @@
     "PREFIX": "×",
     "OWNER": "Aryan Rayhan",
     "OWNER_NOTE": "enjoy Xavia bot",
-    "timezone": "Asia/Ho_Chi_Minh",
+    "timezone": "Asia/Dhaka",
     "REFRESH": "43200000",
     "MAX_BALANCE_LIMIT": "-1",
     "UNSEND": {
