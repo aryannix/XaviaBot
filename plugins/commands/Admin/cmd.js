@@ -26,6 +26,28 @@ const langData = {
         "loadall.failed": "Failed to load some commands",
         "unload.success": "Successfully unloaded command: {name}",
         "unload.notfound": "Command {name} not found or not loaded"
+    },
+    "vi_VN": {
+        "usage": "Cách sử dụng:\n• cmd install <tên.js> <code>\n• cmd load <tên>\n• cmd loadall\n• cmd unload <tên>",
+        "install.success": "Đã cài đặt lệnh: {name}",
+        "install.failed": "Không thể cài đặt lệnh: {error}",
+        "load.success": "Đã tải lệnh: {name}",
+        "load.failed": "Không thể tải lệnh: {error}",
+        "loadall.success": "Đã tải {count} lệnh",
+        "loadall.failed": "Không thể tải một số lệnh",
+        "unload.success": "Đã gỡ lệnh: {name}",
+        "unload.notfound": "Không tìm thấy lệnh {name}"
+    },
+    "ar_SY": {
+        "usage": "الاستخدام:\n• cmd install <اسم.js> <كود>\n• cmd load <اسم>\n• cmd loadall\n• cmd unload <اسم>",
+        "install.success": "تم تثبيت الأمر بنجاح: {name}",
+        "install.failed": "فشل تثبيت الأمر: {error}",
+        "load.success": "تم تحميل الأمر بنجاح: {name}",
+        "load.failed": "فشل تحميل الأمر: {error}",
+        "loadall.success": "تم تحميل {count} أوامر",
+        "loadall.failed": "فشل تحميل بعض الأوامر",
+        "unload.success": "تم إلغاء تحميل الأمر بنجاح: {name}",
+        "unload.notfound": "الأمر {name} غير موجود"
     }
 };
 
